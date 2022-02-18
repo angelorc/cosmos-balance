@@ -22,8 +22,9 @@ func startServerCmd() *cobra.Command {
 	cmd := &cobra.Command{
 		Use:   "server start",
 		Short: "Start rest-server",
+		Args:  cobra.ExactArgs(1),
 		RunE: func(cmd *cobra.Command, args []string) error {
-			cfg, err := config.Load(config.DefaultConfigPath)
+			cfg, err := config.Load(args[0])
 			if err != nil {
 				return fmt.Errorf("load config: %w", err)
 			}
