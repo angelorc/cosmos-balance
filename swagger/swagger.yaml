@@ -1,0 +1,44 @@
+definitions:
+  server.BalancesResponse:
+    properties:
+      available:
+        additionalProperties: true
+        type: object
+      delegations:
+        additionalProperties: true
+        type: object
+      rewards:
+        additionalProperties: true
+        type: object
+      totals:
+        additionalProperties: true
+        type: object
+    type: object
+info:
+  contact: {}
+  description: The cosmos tracker rest server.
+  title: Cosmos Tracker Server API
+  version: "1.0"
+paths:
+  /bitsong/{address}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get bitsong balances by address.
+      parameters:
+      - description: Bitsong address to query
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.BalancesResponse'
+      summary: Get bitsong balances by address.
+      tags:
+      - bitsong
+swagger: "2.0"

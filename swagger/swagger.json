@@ -1,0 +1,66 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "The cosmos tracker rest server.",
+        "title": "Cosmos Tracker Server API",
+        "contact": {},
+        "version": "1.0"
+    },
+    "paths": {
+        "/bitsong/{address}": {
+            "get": {
+                "description": "Get bitsong balances by address.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "bitsong"
+                ],
+                "summary": "Get bitsong balances by address.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bitsong address to query",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/server.BalancesResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "server.BalancesResponse": {
+            "type": "object",
+            "properties": {
+                "available": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "delegations": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "rewards": {
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "totals": {
+                    "type": "object",
+                    "additionalProperties": true
+                }
+            }
+        }
+    }
+}
