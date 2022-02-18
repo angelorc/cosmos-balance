@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	grpccli "github.com/angelorc/cosmos-tracker/client"
+	"github.com/angelorc/cosmos-tracker/client"
 	"github.com/angelorc/cosmos-tracker/config"
 	"github.com/angelorc/cosmos-tracker/server"
 	"github.com/spf13/cobra"
@@ -32,18 +32,31 @@ func startServerCmd() *cobra.Command {
 			ctx, cancel := context.WithCancel(context.Background())
 			defer cancel()
 
-			log.Printf("connecting to grpc server...\n")
-			client, err := grpccli.NewClient(cfg.Bitsong.GRPC)
+			log.Printf("connecting to bitsong grpc server...\n")
+			bitsongClient, err := client.NewClient(cfg.Bitsong.GRPC, cfg.Bitsong.Denom)
 			if err != nil {
 				fmt.Errorf("grpc conn error: %w", err)
 			}
-			log.Printf("grpc server connected...\n")
-			defer client.Close()
+			log.Printf("bitsong grpc server connected...\n")
+			defer bitsongClient.Close()
+
+			log.Printf("connecting to osmosis grpc server...\n")
+			osmosisClient, err := client.NewClient(cfg.Osmosis.GRPC, cfg.Osmosis.Denom)
+			if err != nil {
+				fmt.Errorf("grpc conn error: %w", err)
+			}
+			log.Printf("osmosis grpc server connected...\n")
+			defer bitsongClient.Close()
 
 			logger, _ := zap.NewProductionConfig().Build()
 			defer logger.Sync()
 
-			s := server.NewServer(client, logger)
+			chains := &client.Chains{
+				Bitsong: bitsongClient,
+				Osmosis: osmosisClient,
+			}
+
+			s := server.NewServer(chains, logger)
 			eg, _ := errgroup.WithContext(ctx)
 
 			log.Printf("starting server %s...", cfg.Server.Address)

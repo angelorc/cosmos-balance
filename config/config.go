@@ -6,14 +6,13 @@ import (
 	"io/ioutil"
 )
 
-var DefaultConfigPath = "./config.toml"
-
 type Config struct {
-	Bitsong *BitsongConfig `toml:"bitsong"`
-	Server  *ServerConfig  `toml:"server"`
+	Bitsong *ChainConfig  `toml:"bitsong"`
+	Osmosis *ChainConfig  `toml:"osmosis"`
+	Server  *ServerConfig `toml:"server"`
 }
 
-type BitsongConfig struct {
+type ChainConfig struct {
 	GRPC  string `toml:"grpc"`
 	Denom string `toml:"denom"`
 }

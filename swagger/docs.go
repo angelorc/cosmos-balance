@@ -47,6 +47,38 @@ const docTemplate_swagger = `{
                     }
                 }
             }
+        },
+        "/osmosis/{address}": {
+            "get": {
+                "description": "Get osmosis balances by address.",
+                "consumes": [
+                    "*/*"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "osmosis"
+                ],
+                "summary": "Get osmosis balances by address.",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Osmosis address to query",
+                        "name": "address",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/server.BalancesResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {

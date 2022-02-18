@@ -41,4 +41,25 @@ paths:
       summary: Get bitsong balances by address.
       tags:
       - bitsong
+  /osmosis/{address}:
+    get:
+      consumes:
+      - '*/*'
+      description: Get osmosis balances by address.
+      parameters:
+      - description: Osmosis address to query
+        in: path
+        name: address
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/server.BalancesResponse'
+      summary: Get osmosis balances by address.
+      tags:
+      - osmosis
 swagger: "2.0"

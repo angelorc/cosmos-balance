@@ -16,16 +16,16 @@ type Balances struct {
 	Totals      sdk.Coins    `json:"totals"`
 }
 
-func NewBalances() *Balances {
+func NewBalances(denom string) *Balances {
 	return &Balances{
 		Delegations: sdk.Coin{
-			Denom:  "ubtsg",
+			Denom:  denom,
 			Amount: sdk.NewInt(0),
 		},
 	}
 }
 
-func (c *Client) GetAvailableBalances(addr string) (sdk.Coins, error) {
+func (c *ChainClient) GetAvailableBalances(addr string) (sdk.Coins, error) {
 	res, err := c.Query.Bank.AllBalances(
 		context.Background(),
 		&banktypes.QueryAllBalancesRequest{
@@ -39,8 +39,8 @@ func (c *Client) GetAvailableBalances(addr string) (sdk.Coins, error) {
 	return res.GetBalances(), nil
 }
 
-func (c *Client) GetBalances(addr string) *Balances {
-	balances := NewBalances()
+func (c *ChainClient) GetBalances(addr string) *Balances {
+	balances := NewBalances(c.Denom)
 	balances.Available, _ = c.GetAvailableBalances(addr)
 	delegations, _ := c.GetDelegations(addr)
 
@@ -67,7 +67,7 @@ func (c *Client) GetBalances(addr string) *Balances {
 	return balances
 }
 
-func (c *Client) GetDelegations(addr string) ([]stakingtypes.DelegationResponse, error) {
+func (c *ChainClient) GetDelegations(addr string) ([]stakingtypes.DelegationResponse, error) {
 	res, err := c.Query.Staking.DelegatorDelegations(
 		context.Background(),
 		&stakingtypes.QueryDelegatorDelegationsRequest{
@@ -81,7 +81,7 @@ func (c *Client) GetDelegations(addr string) ([]stakingtypes.DelegationResponse,
 	return res.DelegationResponses, nil
 }
 
-func (c *Client) GetDelegatorRewards(addr, valAddr string) (sdk.DecCoins, error) {
+func (c *ChainClient) GetDelegatorRewards(addr, valAddr string) (sdk.DecCoins, error) {
 	res, err := c.Query.Distribution.DelegationRewards(
 		context.Background(),
 		&distrtypes.QueryDelegationRewardsRequest{

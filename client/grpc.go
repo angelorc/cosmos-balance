@@ -14,26 +14,33 @@ type QueryClient struct {
 	Staking      stakingtypes.QueryClient
 }
 
-type Client struct {
+type ChainClient struct {
 	*grpc.ClientConn
 	Query QueryClient
+	Denom string `json:"denom"`
 }
 
-func NewClient(grpcURL string) (*Client, error) {
+type Chains struct {
+	Bitsong *ChainClient
+	Osmosis *ChainClient
+}
+
+func NewClient(grpcURL string, denom string) (*ChainClient, error) {
 	grpcConn, err := grpc.Dial(
 		grpcURL,             // your gRPC server address.
 		grpc.WithInsecure(), // The SDK doesn't support any transport security mechanism.
 	)
 	if err != nil {
-		return &Client{}, fmt.Errorf("failed to connect GRPC client: %s", err)
+		return &ChainClient{}, fmt.Errorf("failed to connect GRPC client: %s", err)
 	}
 
-	return &Client{
+	return &ChainClient{
 		ClientConn: grpcConn,
 		Query: QueryClient{
 			Bank:         banktypes.NewQueryClient(grpcConn),
 			Distribution: distrtypes.NewQueryClient(grpcConn),
 			Staking:      stakingtypes.NewQueryClient(grpcConn),
 		},
+		Denom: denom,
 	}, nil
 }

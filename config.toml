@@ -1,6 +1,11 @@
 [bitsong]
-grpc = "78.47.82.185:9090"
+#grpc = "78.47.82.185:9090" # testnet
+grpc = "23.88.71.195:9090" # mainnet
 denom = "ubtsg"
+
+[osmosis]
+grpc = "65.108.75.111:9090"
+denom = "uosmo"
 
 [server]
 address = "127.0.0.1:8000"

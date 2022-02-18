@@ -8,6 +8,7 @@ import (
 
 func (s *Server) registerRoutes() {
 	s.GET("/bitsong/:address", s.GetBitsongBalances)
+	s.GET("/osmosis/:address", s.GetOsmosisBalances)
 	s.GET("/swagger/*", echoSwagger.WrapHandler)
 }
 
@@ -29,7 +30,23 @@ type BalancesResponse struct {
 // @Router /bitsong/{address} [get]
 func (s *Server) GetBitsongBalances(c echo.Context) error {
 	addr := c.Param("address")
-	balances := s.client.GetBalances(addr)
+	balances := s.chains.Bitsong.GetBalances(addr)
+
+	return c.JSON(http.StatusOK, balances)
+}
+
+// GetOsmosisBalances godoc
+// @Summary Get osmosis balances by address.
+// @Description Get osmosis balances by address.
+// @Tags osmosis
+// @Accept */*
+// @Produce json
+// @Success 200 {object} BalancesResponse
+// @Param address path string true "Osmosis address to query"
+// @Router /osmosis/{address} [get]
+func (s *Server) GetOsmosisBalances(c echo.Context) error {
+	addr := c.Param("address")
+	balances := s.chains.Osmosis.GetBalances(addr)
 
 	return c.JSON(http.StatusOK, balances)
 }

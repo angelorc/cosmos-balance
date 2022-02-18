@@ -12,7 +12,7 @@ import (
 
 type Server struct {
 	*echo.Echo
-	client *client.Client
+	chains *client.Chains
 	logger *zap.Logger
 }
 
@@ -20,7 +20,7 @@ type Server struct {
 // @version 1.0
 // @description The cosmos tracker rest server.
 
-func NewServer(client *client.Client, logger *zap.Logger) *Server {
+func NewServer(chains *client.Chains, logger *zap.Logger) *Server {
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true
@@ -31,7 +31,7 @@ func NewServer(client *client.Client, logger *zap.Logger) *Server {
 
 	s := &Server{
 		Echo:   e,
-		client: client,
+		chains: chains,
 		logger: logger,
 	}
 	s.registerRoutes()
