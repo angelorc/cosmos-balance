@@ -1,8 +1,8 @@
 # Cosmos Balances Tracker
 
 ```bash
-git clone https://github.com/angelorc/cosmos-balance
-cd cosmos-balance
+git clone https://github.com/angelorc/cosmos-tracker
+cd cosmos-tracker
 make build
 ```
 
