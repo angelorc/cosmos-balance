@@ -1,0 +1,6 @@
+[bitsong]
+grpc = "78.47.82.185:9090"
+denom = "ubtsg"
+
+[server]
+address = "127.0.0.1:8000"

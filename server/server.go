@@ -2,8 +2,8 @@ package server
 
 import (
 	"context"
-	"github.com/angelorc/cosmos-balance/client"
-	_ "github.com/angelorc/cosmos-balance/swagger"
+	"github.com/angelorc/cosmos-tracker/client"
+	_ "github.com/angelorc/cosmos-tracker/swagger"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 	"go.uber.org/zap"
