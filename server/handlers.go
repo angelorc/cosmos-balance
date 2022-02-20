@@ -30,7 +30,7 @@ type BalancesResponse struct {
 // @Router /bitsong/{address} [get]
 func (s *Server) GetBitsongBalances(c echo.Context) error {
 	addr := c.Param("address")
-	balances := s.chains.Bitsong.GetBalances(addr)
+	balances := s.chains.Bitsong.Query.Cosmos.GetBalances(addr)
 
 	return c.JSON(http.StatusOK, balances)
 }
@@ -46,7 +46,7 @@ func (s *Server) GetBitsongBalances(c echo.Context) error {
 // @Router /osmosis/{address} [get]
 func (s *Server) GetOsmosisBalances(c echo.Context) error {
 	addr := c.Param("address")
-	balances := s.chains.Osmosis.GetBalances(addr)
+	balances := s.chains.Osmosis.Query.Cosmos.GetBalances(addr)
 
 	return c.JSON(http.StatusOK, balances)
 }

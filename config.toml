@@ -4,7 +4,7 @@ grpc = "23.88.71.195:9090" # mainnet
 denom = "ubtsg"
 
 [osmosis]
-grpc = "65.108.75.111:9090"
+grpc = "46.4.28.42:9090"
 denom = "uosmo"
 
 [server]

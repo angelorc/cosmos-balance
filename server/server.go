@@ -2,7 +2,7 @@ package server
 
 import (
 	"context"
-	"github.com/angelorc/cosmos-tracker/client"
+	"github.com/angelorc/cosmos-tracker/client/chain"
 	_ "github.com/angelorc/cosmos-tracker/swagger"
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
@@ -12,7 +12,7 @@ import (
 
 type Server struct {
 	*echo.Echo
-	chains *client.Chains
+	chains *chain.Chains
 	logger *zap.Logger
 }
 
@@ -20,7 +20,7 @@ type Server struct {
 // @version 1.0
 // @description The cosmos tracker rest server.
 
-func NewServer(chains *client.Chains, logger *zap.Logger) *Server {
+func NewServer(chains *chain.Chains, logger *zap.Logger) *Server {
 	e := echo.New()
 	e.HideBanner = true
 	e.HidePort = true

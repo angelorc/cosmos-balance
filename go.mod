@@ -6,6 +6,7 @@ require (
 	github.com/cosmos/cosmos-sdk v0.44.5
 	github.com/labstack/echo/v4 v4.6.3
 	github.com/naoina/toml v0.1.2-0.20170918210437-9fafd6967416
+	github.com/osmosis-labs/osmosis v1.0.3-0.20211217093711-dfe74a35ccc7
 	github.com/spf13/cobra v1.3.0
 	github.com/swaggo/echo-swagger v1.3.0
 	github.com/swaggo/swag v1.7.9
